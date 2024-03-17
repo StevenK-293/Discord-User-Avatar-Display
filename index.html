@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Avatar Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .avatar-container {
+            text-align: center;
+        }
+        img {
+            max-width: 200px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="avatar-container">
+        <h1>User Avatar Display</h1>
+        <p>This website uses the provided API to display user avatars.</p>
+        <div class="avatar">
+            <img id="avatar-image" src="" alt="User Avatar">
+        </div>
+    </div>
+
+    <script>
+        const userId = "773952016036790272"; // YOUR DISCORD USER_ID
+        const apiUrl = `https://avatar-cyan.vercel.app/api/pfp/${userId}/image`; // API
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const imageUrl = URL.createObjectURL(blob);
+                document.getElementById('avatar-image').src = imageUrl;
+            })
+            .catch(error => {
+                console.error('There was a problem fetching the avatar:', error);
+            });
+    </script>
+</body>
+</html>
